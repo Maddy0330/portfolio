@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhu Prakash S - Mechanical Design Engineer</title>
+    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@r128/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@r128/examples/jsm/"
+        }
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1A1A1D;
+            --secondary: #8C969E;
+            --accent: #C86446;
+            --background: #F5F7F9;
+            --text-dark: #1A1A1D;
+            --text-light: #8C969E;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(245, 247, 249, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 40px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(140, 150, 158, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 60px;
+            background-color: var(--background);
+        }
+
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(245, 247, 249, 0.95) 0%, rgba(245, 247, 249, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .hero-name {
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--accent);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .hero-cta {
+            padding: 14px 40px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .hero-cta:hover {
+            background-color: #b85538;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 100, 70, 0.2);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--secondary);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 120px 0;
+            background-color: var(--background);
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        /* 3D Model Viewer Section */
+        .models-section {
+            padding: 80px 0;
+            background-color: var(--background);
+        }
+
+        .viewer-wrapper {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(26, 26, 29, 0.08);
+            margin-bottom: 60px;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #f5f7f9 0%, #eaeef5 100%);
+            position: relative;
+        }
+
+        .viewer-info {
+            padding: 24px 40px;
+            background-color: white;
+            border-top: 1px solid #e8ecf1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .viewer-info-left h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 6px 0;
+        }
+
+        .viewer-hint {
+            font-size: 13px;
+            color: var(--secondary);
+            margin: 0;
+        }
+
+        .upload-model-btn {
+            padding: 10px 28px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .upload-model-btn:hover {
+            background-color: #b85538;
+            transform: translateY(-2px);
+        }
+
+        .upload-model-btn input {
+            display: none;
+        }
+
+        /* Models List */
+        .models-list-container {
+            margin-top: 40px;
+        }
+
+        .models-list-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .model-card {
+            padding: 16px;
+            background-color: white;
+            border: 2px solid #e8ecf1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .model-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(200, 100, 70, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .model-card.active {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .model-card-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .model-delete-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .model-delete-btn:hover {
+            opacity: 1;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--secondary);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 0 0 12px 0;
+        }
+
+        .empty-state p {
+            margin: 0;
+        }
+
+        /* 2D Drawings Section */
+        .drawings-section {
+            padding: 80px 0;
+            background-color: var(--background);
+        }
+
+        .drawings-viewer {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 16px rgba(26, 26, 29, 0.08);
+            margin-bottom: 60px;
+        }
+
+        #pdf-viewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        .pdf-viewer-placeholder {
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7f9 0%, #eaeef5 100%);
+            color: var(--secondary);
+            font-size: 48px;
+        }
+
+        .upload-drawing-btn {
+            padding: 10px 28px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .upload-drawing-btn:hover {
+            background-color: #b85538;
+            transform: translateY(-2px);
+        }
+
+        .upload-drawing-btn input {
+            display: none;
+        }
+
+        /* Drawings List */
+        .drawings-list-container {
+            margin-top: 40px;
+        }
+
+        .drawings-list-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .drawings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .drawing-card {
+            background-color: white;
+            border: 2px solid #e8ecf1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drawing-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(200, 100, 70, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .drawing-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(200, 100, 70, 0.2);
+        }
+
+        .drawing-thumbnail {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #C86446 0%, #b85538 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+        }
+
+        .drawing-name {
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-align: center;
+            background-color: white;
+        }
+
+        .drawing-actions {
+            padding: 8px;
+            display: flex;
+            gap: 6px;
+            background-color: #fafbfc;
+            border-top: 1px solid #e8ecf1;
+        }
+
+        .drawing-action-btn {
+            flex: 1;
+            padding: 6px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .drawing-action-btn:hover {
+            background-color: #b85538;
+        }
+
+        .drawing-delete-btn {
+            padding: 6px;
+            background-color: #e8ecf1;
+            color: var(--primary);
+            border: none;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .drawing-delete-btn:hover {
+            background-color: #d4dadf;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-top: 40px;
+        }
+
+        .about-content h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+
+        .about-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin: 0 0 16px 0;
+        }
+
+        .about-content ul {
+            list-style: none;
+            color: var(--text-light);
+        }
+
+        .about-content li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .about-content li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .achievements-box {
+            background-color: #fafbfc;
+            padding: 24px;
+            border-left: 4px solid var(--accent);
+            margin-top: 24px;
+        }
+
+        .achievements-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .achievement-item {
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .achievement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding-top: 60px;
+                min-height: 80vh;
+            }
+
+            .hero-title {
+                font-size: 44px;
+            }
+
+            .hero-name {
+                font-size: 32px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .models-section,
+            .drawings-section,
+            .about-section {
+                padding: 60px 0;
+            }
+
+            #canvas-container {
+                height: 350px;
+            }
+
+            #pdf-viewer,
+            .pdf-viewer-placeholder {
+                height: 400px;
+            }
+
+            .models-grid,
+            .drawings-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">MDE</div>
+            <ul class="nav-links">
+                <li><a class="nav-link active" data-section="hero">Home</a></li>
+                <li><a class="nav-link" data-section="models">3D Models</a></li>
+                <li><a class="nav-link" data-section="drawings">2D Drawings</a></li>
+                <li><a class="nav-link" data-section="about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <video class="hero-bg-video" id="bg-video" autoplay muted loop playsinline>
+            <source src="" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Mechanical Design Engineer</h1>
+            <h2 class="hero-name">Madhu Prakash S</h2>
+            <button class="hero-cta" onclick="document.getElementById('models').scrollIntoView({behavior: 'smooth'})">
+                View My Work
+            </button>
+        </div>
+
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 3D Models Section -->
+    <section class="models-section" id="models">
+        <div class="container">
+            <h2 class="section-title">3D CAD Models</h2>
+
+            <div class="viewer-wrapper">
+                <div id="canvas-container">
+                    <div class="empty-state">
+                        <div class="empty-icon">🔧</div>
+                        <h3>No Models Uploaded</h3>
+                        <p>Upload your 3D CAD models to view them interactively</p>
+                    </div>
+                </div>
+                <div class="viewer-info">
+                    <div class="viewer-info-left">
+                        <h3 id="model-title">3D Model Viewer</h3>
+                        <p class="viewer-hint">💡 Drag to rotate • Scroll to zoom • Right-click to pan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="models-list-container">
+                <h3 class="models-list-title">Your Models</h3>
+                <div class="models-grid" id="models-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2D Drawings Section -->
+    <section class="drawings-section" id="drawings">
+        <div class="container">
+            <h2 class="section-title">2D Engineering Drawings</h2>
+
+            <div class="drawings-viewer">
+                <div id="pdf-container">
+                    <div class="pdf-viewer-placeholder">📄</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 40px;">
+                <h3 class="drawings-list-title">Your Drawings</h3>
+            </div>
+
+            <div class="drawings-grid" id="drawings-grid"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+
+            <div class="about-grid">
+                <div>
+                    <h3>Professional Overview</h3>
+                    <p>
+                        Aspiring Mechanical Design Engineer with an M.Tech in Mechanical Systems (Robotics & AI specialization) and a B.E. in Mechanical Engineering. Hands-on experience in 3D CAD modeling, component design, and integrating custom-designed parts with standard industrial components to create functional assemblies.
+                    </p>
+                    <p>
+                        Familiar with mechanical design principles, manufacturing considerations, and basic application of GD&T and tolerance stack-up analysis. Proficient in Autodesk Fusion 360 and actively developing skills in SolidWorks.
+                    </p>
+
+                    <h3>Expertise</h3>
+                    <ul>
+                        <li>3D CAD Modeling (Fusion 360, AutoCAD)</li>
+                        <li>Component & Assembly Design</li>
+                        <li>GD&T & Tolerance Analysis</li>
+                        <li>Manufacturing Drawings</li>
+                        <li>Mechanical Design for Automation</li>
+                        <li>Robotics & UAV Design</li>
+                        <li>Python & Computer Vision (YOLOv8)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Education</h3>
+                    <ul>
+                        <li><strong>M.Tech in Robotics & AI</strong><br>Ramaiah Institute of Technology (2023-2025)<br>CGPA: 8.97</li>
+                        <li><strong>B.E. in Mechanical Engineering</strong><br>Dr. Ambedkar Institute of Technology (2019-2023)<br>CGPA: 8.0</li>
+                    </ul>
+
+                    <div class="achievements-box">
+                        <h4>🏆 Achievements</h4>
+                        <div class="achievement-item">GATE 2023 Exam – AIR 10686</div>
+                        <div class="achievement-item">PGCET 2024 – AIR 35</div>
+                        <div class="achievement-item">CSWA Certification (SolidWorks)</div>
+                    </div>
+
+                    <h3>Work Experience</h3>
+                    <ul>
+                        <li><strong>Mechanical Design & Automation Intern</strong><br>Wipro Hydraulics (Jan 2026 - Present)<br>• 3D CAD modeling for automation solutions<br>• Manufacturing drawing preparation with GD&T<br>• Industrial process improvement</li>
+                        <li><strong>Industrial Robotics Training</strong><br>GTTC (Nov-Dec 2024)<br>• KUKA robot programming & path planning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Madhu Prakash S. Mechanical Design Engineer | Bengaluru, India</p>
+        <p>
+            <a href="mailto:madhuprakashs02@gmail.com">Email</a> • 
+            <a href="tel:+919108715799">Phone: +91 9108715799</a> • 
+            <a href="https://linkedin.com/in/madhuprakashs" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+        import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // State
+        let scene, camera, renderer, controls, currentModel;
+        let models = [];
+        let drawings = [];
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const section = e.target.dataset.section;
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                e.target.classList.add('active');
+                document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Initialize Three.js
+        function initThree() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf5f7f9);
+
+            camera = new THREE.PerspectiveCamera(
+                75,
+                container.clientWidth / container.clientHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(0, 0, 5);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+
+            // Clear container and add renderer
+            const emptyState = container.querySelector('.empty-state');
+            if (emptyState) emptyState.remove();
+            container.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
+            directionalLight.position.set(8, 12, 8);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            scene.add(directionalLight);
+
+            // Controls
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 2;
+            controls.enableZoom = true;
+            controls.enablePan = true;
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                if (controls) controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Resize handler
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        }
+
+        // Load 3D Model from GitHub URL
+        function loadModelFromURL(url, modelName) {
+            if (!scene) initThree();
+
+            const extension = url.split('.').pop().toLowerCase();
+            let loader;
+
+            if (extension === 'obj') {
+                loader = new OBJLoader();
+            } else if (extension === 'fbx') {
+                loader = new FBXLoader();
+            } else {
+                loader = new GLTFLoader();
+            }
+
+            loader.load(url, (model) => {
+                if (currentModel) scene.remove(currentModel);
+
+                // Handle different loader types
+                let object = model;
+                if (model.scene) object = model.scene;
+
+                object.traverse((node) => {
+                    if (node.isMesh) {
+                        node.castShadow = true;
+                        node.receiveShadow = true;
+                    }
+                });
+
+                const box = new THREE.Box3().setFromObject(object);
+                const size = box.getSize(new THREE.Vector3());
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const scale = 4 / maxDim;
+                object.scale.multiplyScalar(scale);
+
+                const center = box.getCenter(new THREE.Vector3());
+                object.position.sub(center.multiplyScalar(scale));
+
+                scene.add(object);
+                currentModel = object;
+                camera.position.z = 6;
+
+                document.getElementById('model-title').textContent = modelName;
+            }, undefined, (error) => {
+                console.error('Error loading model:', error);
+                alert('Error loading 3D model. Make sure the file is in the models folder.');
+            });
+        }
+
+        // Auto-load models from GitHub folder
+        async function loadModelsFromGitHub() {
+            try {
+                const username = 'madhuprakash'; // Change this to your GitHub username
+                const repo = 'portfolio'; // Change this to your repo name
+                const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/models`;
+                
+                const response = await fetch(apiUrl);
+                const files = await response.json();
+                
+                if (Array.isArray(files)) {
+                    files.forEach(file => {
+                        if (file.name.endsWith('.obj') || file.name.endsWith('.fbx') || file.name.endsWith('.glb') || file.name.endsWith('.gltf')) {
+                            models.push({ 
+                                name: file.name.split('.')[0], 
+                                url: file.download_url 
+                            });
+                        }
+                    });
+                    renderModelsList();
+                }
+            } catch (error) {
+                console.log('Models folder not found or empty');
+            }
+        }
+        
+        // Load models on page load
+        loadModelsFromGitHub();
+
+        function renderModelsList() {
+            const grid = document.getElementById('models-grid');
+            grid.innerHTML = '';
+
+            if (models.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; color: #8C969E; text-align: center;">No models available</p>';
+                return;
+            }
+
+            models.forEach((model, idx) => {
+                const card = document.createElement('div');
+                card.className = 'model-card';
+
+                card.innerHTML = `
+                    <span class="model-card-name">${model.name}</span>
+                `;
+
+                card.addEventListener('click', () => {
+                    loadModelFromURL(model.url, model.name);
+                    document.querySelectorAll('.model-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Auto-load drawings from GitHub folder
+        async function loadDrawingsFromGitHub() {
+            try {
+                const username = 'madhuprakash'; // Change this to your GitHub username
+                const repo = 'portfolio'; // Change this to your repo name
+                const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/drawings`;
+                
+                const response = await fetch(apiUrl);
+                const files = await response.json();
+                
+                if (Array.isArray(files)) {
+                    files.forEach(file => {
+                        if (file.name.endsWith('.pdf')) {
+                            drawings.push({ 
+                                name: file.name, 
+                                url: file.download_url 
+                            });
+                        }
+                    });
+                    renderDrawings();
+                }
+            } catch (error) {
+                console.log('Drawings folder not found or empty');
+            }
+        }
+        
+        // Load drawings on page load
+        loadDrawingsFromGitHub();
+
+        function renderDrawings() {
+            const grid = document.getElementById('drawings-grid');
+            grid.innerHTML = '';
+
+            if (drawings.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; color: #8C969E; text-align: center;">No drawings available</p>';
+                return;
+            }
+
+            drawings.forEach((drawing, idx) => {
+                const card = document.createElement('div');
+                card.className = 'drawing-card';
+
+                card.innerHTML = `
+                    <div class="drawing-thumbnail">📄</div>
+                    <div class="drawing-name">${drawing.name}</div>
+                    <div class="drawing-actions">
+                        <a class="drawing-action-btn" href="${drawing.url}" target="_blank">View</a>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => {
+                    const container = document.getElementById('pdf-container');
+                    container.innerHTML = `<iframe id="pdf-viewer" src="${drawing.url}"></iframe>`;
+                    document.querySelectorAll('.drawing-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Background Video Input
+        const bgVideoInput = document.getElementById('bg-video');
+        // Allow setting video source via JavaScript
+        window.setBackgroundVideo = (url) => {
+            bgVideoInput.src = url;
+        };
+
+        // Load models from GitHub
+        window.loadModelsFromGitHub = (username, repo) => {
+            const githubUrl = `https://raw.githubusercontent.com/${username}/${repo}/main/models/`;
+            // This will load model list - you can customize this based on your needs
+            console.log(`Loading models from: ${githubUrl}`);
+        };
+
+        // Load drawings from GitHub
+        window.loadDrawingsFromGitHub = (username, repo) => {
+            const githubUrl = `https://raw.githubusercontent.com/${username}/${repo}/main/drawings/`;
+            // This will load drawings list - you can customize this based on your needs
+            console.log(`Loading drawings from: ${githubUrl}`);
+        };
+    </script>
+</body>
+</html>
