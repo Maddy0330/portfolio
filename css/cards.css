@@ -1,145 +1,173 @@
+/*==========================================================
+    cards.css
+==========================================================*/
 
-/* ==========================================================
-   Mechanical Design Portfolio v2.0
-   cards.css
-========================================================== */
+/* Card hover glow */
 
 .project-card{
-    background:#fff;
-    border-radius:18px;
+
+    position:relative;
+
     overflow:hidden;
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
-    border:1px solid #e5eaef;
-    cursor:pointer;
-    transition:all .3s ease;
-    display:flex;
-    flex-direction:column;
+
 }
 
-.project-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 20px 40px rgba(0,0,0,.12);
-    border-color:#C86446;
+.project-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        135deg,
+        rgba(63,169,245,.10),
+        transparent 60%
+    );
+
+    opacity:0;
+
+    transition:.35s ease;
+
+    pointer-events:none;
+
 }
+
+.project-card:hover::before{
+
+    opacity:1;
+
+}
+
+/* Thumbnail zoom */
 
 .project-thumb{
-    height:220px;
-    background:linear-gradient(135deg,#eef2f6,#dfe6ec);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
+
     overflow:hidden;
+
 }
 
 .project-thumb img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+
+    transition:transform .5s ease;
+
 }
 
-.project-thumb .placeholder{
-    font-size:72px;
-    opacity:.45;
+.project-card:hover .project-thumb img{
+
+    transform:scale(1.05);
+
 }
+
+/* Placeholder icon */
+
+.placeholder{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:100%;
+
+    height:100%;
+
+    font-size:4.5rem;
+
+    font-weight:700;
+
+    color:rgba(255,255,255,.10);
+
+    user-select:none;
+
+}
+
+/* Category badge */
 
 .project-category{
+
     position:absolute;
-    top:14px;
-    left:14px;
-    background:#C86446;
+
+    top:18px;
+
+    right:18px;
+
+    background:rgba(63,169,245,.95);
+
     color:#fff;
-    padding:6px 12px;
-    border-radius:999px;
-    font-size:12px;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:.75rem;
+
     font-weight:600;
+
+    letter-spacing:.5px;
+
 }
 
-.project-content{
-    padding:22px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    flex:1;
-}
-
-.project-title{
-    font-size:22px;
-    font-weight:700;
-    color:#1A1A1D;
-    line-height:1.3;
-}
-
-.project-description{
-    color:#8C969E;
-    font-size:15px;
-    line-height:1.6;
-    flex:1;
-}
-
-.project-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.project-tag{
-    background:#f5f7f9;
-    color:#1A1A1D;
-    border:1px solid #e3e8ed;
-    border-radius:999px;
-    padding:6px 12px;
-    font-size:12px;
-    font-weight:600;
-}
-
-.project-footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding-top:14px;
-    border-top:1px solid #eef2f6;
-}
-
-.software-badge{
-    color:#C86446;
-    font-weight:700;
-    font-size:14px;
-}
+/* Button */
 
 .view-project-btn{
-    background:#C86446;
-    color:#fff;
-    padding:10px 18px;
-    border-radius:10px;
-    font-weight:600;
-    transition:.25s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
 }
 
-.view-project-btn:hover{
-    background:#b45337;
+.view-project-btn::after{
+
+    content:"→";
+
+    transition:transform .3s ease;
+
 }
 
-.project-card.active{
-    border:2px solid #C86446;
-    box-shadow:0 18px 36px rgba(200,100,70,.22);
+.project-card:hover .view-project-btn::after{
+
+    transform:translateX(5px);
+
 }
 
-.empty-projects{
-    grid-column:1/-1;
-    padding:80px 20px;
-    text-align:center;
-    color:#8C969E;
+/* Software badge */
+
+.software-badge{
+
+    white-space:nowrap;
+
 }
 
-@media(max-width:768px){
-    .project-thumb{height:180px;}
-    .project-title{font-size:20px;}
-    .project-content{padding:18px;}
-    .project-footer{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:12px;
+/* Smooth appearance */
+
+.project-card{
+
+    animation:cardFade .6s ease;
+
+}
+
+@keyframes cardFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
     }
-    .view-project-btn{width:100%;text-align:center;}
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
 }
