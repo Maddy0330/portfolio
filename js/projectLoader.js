@@ -76,9 +76,15 @@ export class ProjectLoader {
         card.innerHTML = `
    
             <div class="project-thumb">
-   
-                <div class="placeholder">⚙️</div>
-   
+
+                ${
+                    project.thumbnail
+                    ? `<img src="${project.thumbnail}"
+                           alt="${project.title}"
+                           loading="lazy">`
+                    : `<div class="placeholder">⚙️</div>`
+                }
+            
             </div>
    
             <div class="project-content">
