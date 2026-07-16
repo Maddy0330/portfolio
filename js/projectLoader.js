@@ -169,22 +169,39 @@ export class ProjectLoader {
 
         );
 
-        pdfViewer.innerHTML = `
+        if (project.drawing) {
 
-            <iframe
-
-                src="drawings/${project.drawing}"
-
-                width="100%"
-
-                height="700"
-
-                frameborder="0"
-
-            ></iframe>
-
-        `;
-
+            pdfViewer.innerHTML = `
+      
+                <iframe
+                    src="drawings/${project.drawing}"
+                    width="100%"
+                    height="700"
+                    frameborder="0"
+                ></iframe>
+      
+            `;
+      
+        }
+      
+        else {
+      
+            pdfViewer.innerHTML = `
+      
+                <div class="no-drawing">
+      
+                    <h2>No Engineering Drawing Available</h2>
+      
+                    <p>
+                        This project currently contains only the 3D model.
+                    </p>
+        
+                </div>
+      
+            `;
+      
+        }
+       
         window.scrollTo({
 
             top:
