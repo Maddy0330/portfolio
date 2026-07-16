@@ -78,10 +78,11 @@ export class ProjectLoader {
 
             <div class="project-thumb">
 
-                <img
-                    src="thumbnails/${project.thumbnail}"
-                    alt="${project.title}"
-                >
+                <div class="placeholder">
+
+                    ⚙️
+
+                </div>
 
                 <div class="project-category">
 
