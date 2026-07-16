@@ -1,0 +1,139 @@
+
+/* ==========================================================
+   Mechanical Design Portfolio v2.0
+   responsive.css
+========================================================== */
+
+/* Large Desktop */
+@media (min-width:1600px){
+    :root{ --container:1500px; }
+    .hero h1{font-size:78px;}
+    #featured-viewer{height:760px;}
+}
+
+/* Laptop */
+@media (max-width:1200px){
+    .navbar{padding:0 32px;}
+    .hero{
+        grid-template-columns:1fr;
+        text-align:center;
+        gap:50px;
+    }
+    .hero-left{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+    #featured-viewer{
+        max-width:900px;
+        margin:auto;
+        height:560px;
+    }
+    #projectViewer{
+        grid-template-columns:1fr;
+    }
+    #modelViewer,
+    #pdfViewer{
+        min-height:550px;
+    }
+}
+
+/* Tablet */
+@media (max-width:992px){
+    section{padding:70px 5%;}
+    .hero h1{font-size:54px;}
+    .toolbar{
+        flex-direction:column;
+        align-items:stretch;
+    }
+    .toolbar input,
+    .toolbar select{
+        width:100%;
+    }
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+    .meta-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* Mobile */
+@media (max-width:768px){
+    .navbar{
+        height:auto;
+        padding:18px;
+        flex-direction:column;
+        gap:14px;
+    }
+    nav ul{
+        gap:18px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+    .hero{
+        padding-top:150px;
+    }
+    .hero h1{
+        font-size:42px;
+    }
+    .hero-description{
+        font-size:16px;
+    }
+    .hero-buttons{
+        flex-direction:column;
+        width:100%;
+    }
+    .hero-buttons button,
+    .secondary-btn{
+        width:100%;
+        text-align:center;
+    }
+    #featured-viewer{
+        height:420px;
+    }
+    .skills-strip{
+        gap:12px;
+        padding:18px;
+    }
+    .section-header h2{
+        font-size:34px;
+    }
+    #projectGrid{
+        grid-template-columns:1fr;
+    }
+    #modelViewer,
+    #pdfViewer{
+        min-height:400px;
+    }
+    .contact-links{
+        flex-direction:column;
+        align-items:stretch;
+    }
+    .contact-links a{
+        text-align:center;
+    }
+}
+
+/* Small Phones */
+@media (max-width:480px){
+    .logo{
+        font-size:22px;
+    }
+    .hero h1{
+        font-size:34px;
+    }
+    .subtitle{
+        font-size:13px;
+    }
+    #featured-viewer{
+        height:320px;
+    }
+    #modelViewer,
+    #pdfViewer{
+        min-height:320px;
+    }
+    .section-header h2{
+        font-size:28px;
+    }
+}
