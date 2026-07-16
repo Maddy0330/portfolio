@@ -69,73 +69,48 @@ export class ProjectLoader {
 
     createCard(project) {
 
-        const card =
-            document.createElement("div");
-
+        const card = document.createElement("div");
+   
         card.className = "project-card";
-
+   
         card.innerHTML = `
-
+   
             <div class="project-thumb">
-
-                <div class="placeholder">
-
-                    ⚙️
-
-                </div>
-
-                <div class="project-category">
-
-                    ${project.category}
-
-                </div>
-
+   
+                <div class="placeholder">⚙️</div>
+   
             </div>
-
+   
             <div class="project-content">
-
-                <h3 class="project-title">
-
-                    ${project.title}
-
-                </h3>
-
-                <p class="project-description">
-
-                    ${project.description}
-
-                </p>
-
+   
+                <h3 class="project-title">${project.title}</h3>
+   
+                <p class="project-description">${project.description}</p>
+   
                 <div class="project-footer">
-
+    
                     <span class="software-badge">
-
+   
                         ${project.software}
-
+   
                     </span>
-
+   
                     <button class="view-project-btn">
-
+   
                         View Project
-
+   
                     </button>
-
+   
                 </div>
-
+   
             </div>
-
+   
         `;
-
-        card.addEventListener(
-
-            "click",
-
-            () => this.openProject(project)
-
-        );
-
+   
+        card.addEventListener("click", () => this.openProject(project));
+   
         return card;
-
+   
     }
 
     /* ==========================================
