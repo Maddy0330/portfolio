@@ -37,20 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         ui.init();
 
-        /* ==========================================
-            DEFAULT PROJECT
-        ========================================== */
-
-        if (projectLoader.projects.length > 0) {
-
-            projectLoader.openProject(
-
-                projectLoader.projects[0]
-
-            );
-
-        }
-
         console.log(
 
             "Mechanical Design Portfolio Loaded Successfully."
