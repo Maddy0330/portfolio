@@ -118,5 +118,17 @@
     "model": "Wiper blades.fbx",
     "drawing": "Wiper blades.pdf",
     "thumbnail":"thumbnails/Wiper blades.png"
+  },
+  {
+    "id": 11,
+    "title": "A1P3 – CATIA Component",
+    "category": "Mechanical Design",
+    "software": "CATIA V5",
+    "material": "Steel",
+    "manufacturing": "Machining",
+    "description": "Mechanical component designed in CATIA V5 as part of a multi-component assembly.",
+    "model": "A1P3.fbx",
+    "drawing": "",
+    "thumbnail": ""
   }
 ]
